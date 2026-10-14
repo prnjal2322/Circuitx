@@ -68,13 +68,14 @@ allowed_origins = [
     config.FRONTEND_ORIGIN,
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://taupe-daifuku-500895.netlify.app",
 ]
-# Remove duplicates while preserving order
-unique_origins = list(dict.fromkeys(allowed_origins))
+unique_origins = list(dict.fromkeys([o for o in allowed_origins if o]))
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=unique_origins,
+    allow_origin_regex=r"^https?://.*",
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
